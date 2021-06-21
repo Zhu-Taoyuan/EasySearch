@@ -1,0 +1,6 @@
+*.ui
+/.vscode/
+*.ico
+/src/resources/
+/src/__pycache__/
+/src/settings.json
