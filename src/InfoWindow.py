@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QPushButton, QWidget, QTabBar, QVBoxLayout, QTabWidget, QHBoxLayout, QListWidget,\
     QStackedWidget, QListWidgetItem, QProgressBar, QGridLayout, QLabel, QSizePolicy, QSpacerItem,\
     QLineEdit, QAction, QApplication, QFileDialog, QMessageBox, QDialog, QDialogButtonBox
-from PyQt5.QtCore import Qt, pyqtSignal, QTimer,  QMarginsF
-from PyQt5.QtGui import QIcon, QPageLayout, QPageSize, QColor
+from PyQt5.QtCore import Qt, pyqtSignal, QTimer,  QMarginsF, QSize, QModelIndex
+from PyQt5.QtGui import  QIcon, QPageLayout, QPageSize, QColor
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 import datetime
 from pathlib import Path
@@ -92,7 +92,10 @@ class SearchPage(QWidget):
 
     def setupUi(self):
         self._resultListWidget = QListWidget(self)#结果的列出框
+        self._resultListWidget.setStyleSheet("font-size:20px;")
         self._engineListWidget = QListWidget(self)#引擎的选择框
+        self._engineListWidget.setIconSize(QSize(30,30))
+        self._engineListWidget.setStyleSheet("font-size:20px;outline: 0px;border:0px;")
         self._horizontalLayout = QHBoxLayout(self)
         self._horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self._horizontalLayout.addWidget(self._engineListWidget)
@@ -115,6 +118,8 @@ class SearchPage(QWidget):
             engineName = self._resultDict[engineID]["engineName"]
             engineItem = QListWidgetItem(icon,engineName,self._engineListWidget)
             self._engineListWidget.addItem(engineItem)
+        self._engineListWidget.setCurrentRow(0)
+        self._engineListWidget.itemClicked.emit(self._engineListWidget.item(0))
 
     def _engineChooseHandle(self,item):
         self._resultListWidget.clear()
@@ -190,6 +195,7 @@ class PreviewTab(QWidget):
     def setUpUi(self):
         self._webWidget = QWebEngineView(self) # 用于浏览网页
         self._webWidget.setHtml(self._htmlCode)
+        self._webWidget.setContentsMargins(10,10,10,10)
 
         spacerItem = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         label = QLabel("网页地址：")
@@ -208,7 +214,7 @@ class PreviewTab(QWidget):
         pathAction = QAction(self._pathLineEdit)
         icon = QIcon(":/src/icon/fileOpen.ico")
         pathAction.setIcon(icon)
-        pathAction.setToolTip("更改到处文件路径")
+        pathAction.setToolTip("更改导出文件路径")
         pathAction.triggered.connect(self._pathHandle)
         self._pathLineEdit.addAction(pathAction, QLineEdit.TrailingPosition)
         exportButton = QPushButton("导出为PDF")

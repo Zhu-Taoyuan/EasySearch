@@ -1,0 +1,5 @@
+QDarkStyle==3.0.2
+requests==2.25.1
+lxml==4.6.3
+system_hotkey==1.0.3
+PyQt5==5.15.4

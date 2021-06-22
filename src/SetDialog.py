@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QDialog, QLabel, QKeySequenceEdit, QRadioButton, QLineEdit, QDialogButtonBox
-from PyQt5.QtCore import QRect, Qt, pyqtSignal
+from PyQt5.QtWidgets import QDialog, QLabel, QKeySequenceEdit, QRadioButton, QLineEdit, QDialogButtonBox, QGridLayout
+from PyQt5.QtCore import  Qt, pyqtSignal
 from PyQt5.QtGui import QKeySequence, QIcon
 import icons
 
@@ -12,17 +12,15 @@ class SetDialog(QDialog):
         self._replaceList = [("control","Ctrl"),("alt","Alt"),("shift","Shift")]#两个包之间快捷键有出入的列表
         self.setFixedSize(400, 300)
         self.setWindowIcon(QIcon(":/src/engineIcon/searchAll.ico"))
+        self.setWindowTitle("设置")
         self.setWindowFlags(self.windowFlags()&~Qt.WindowContextHelpButtonHint)
         self.setAttribute(Qt.WA_QuitOnClose, False)
         self.setupUi()
     
     def setupUi(self):
         label1 = QLabel("唤醒热键", self)
-        label1.setGeometry(QRect(30, 40, 150, 20))
-        label2 = QLabel("失去焦点后自动隐藏", self)
-        label2.setGeometry(QRect(30, 180, 150, 20))
-        label3 = QLabel("每个引擎搜索文章数", self)
-        label3.setGeometry(QRect(30, 110, 150, 20))
+        label2 = QLabel("每个引擎搜索文章数", self)
+        label3 = QLabel("失去焦点后自动隐藏", self)
         
         #快捷键转换
         keyStr = ""
@@ -34,20 +32,16 @@ class SetDialog(QDialog):
         #快捷键输入
         keySequence = QKeySequence(keyStr)
         self._keySequenceEdit = QKeySequenceEdit(keySequence,self)
-        self._keySequenceEdit.setGeometry(QRect(250, 40, 113, 24))
 
         self._lineEdit = QLineEdit(self)
         self._lineEdit.setText(str(self._config["passageNum"]))
         self._lineEdit.setPlaceholderText("1至20的整数")
-        self._lineEdit.setGeometry(QRect(250, 110, 113, 21))
         self._lineEdit.textEdited.connect(self._textEditedHandle)
 
         #选择框
         self._radioButtonYes = QRadioButton("是", self)
-        self._radioButtonYes.setGeometry(QRect(250, 180, 55, 25))
 
         self._radioButtonNo = QRadioButton("否", self)
-        self._radioButtonNo.setGeometry(QRect(320, 180, 55, 25))
 
         if self._config["loseFocusHidden"]:
             self._radioButtonYes.setChecked(True)
@@ -55,12 +49,24 @@ class SetDialog(QDialog):
             self._radioButtonNo.setChecked(True)
 
         self._buttonBox = QDialogButtonBox(self)
-        self._buttonBox.setGeometry(QRect(30, 250, 341, 32))
         self._buttonBox.setOrientation(Qt.Horizontal)
         self._buttonBox.addButton("确定",QDialogButtonBox.AcceptRole)
         self._buttonBox.addButton("取消",QDialogButtonBox.RejectRole)
         self._buttonBox.accepted.connect(self._acceptedHandle)
         self._buttonBox.rejected.connect(self.close)
+
+        gridLayout = QGridLayout(self)
+        gridLayout.addWidget(label1,0,0,1,1)
+        gridLayout.addWidget(label2,1,0,1,1)
+        gridLayout.addWidget(label3,2,0,1,1)
+        gridLayout.addWidget(self._keySequenceEdit,0,1,1,2)
+        gridLayout.addWidget(self._lineEdit,1,1,1,2)
+        gridLayout.addWidget(self._radioButtonYes,2,1,1,1)
+        gridLayout.addWidget(self._radioButtonNo,2,2,1,1)
+        gridLayout.addWidget(self._buttonBox,3,0,1,3)
+        gridLayout.setColumnStretch(0, 2)
+        gridLayout.setColumnStretch(1, 1)
+        gridLayout.setColumnStretch(2, 1)
     
 
     def _textEditedHandle(self, text):
