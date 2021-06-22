@@ -24,7 +24,7 @@ class SearchBar(QWidget):
     def _setupUi(self):
         """初始化UI界面
         """
-        self.setWindowFlags(Qt.FramelessWindowHint|Qt.SplashScreen) #无边框 
+        self.setWindowFlags(Qt.SplashScreen) #无标题栏 Qt.FramelessWindowHint|
         self.setFixedSize(1000, 50) #固定窗口大小
         #调整窗口初始位置
         desktop = QApplication.desktop()
@@ -176,7 +176,7 @@ class SearchLineEdit(QLineEdit):
         """UI的设置
         """
         #边框设置
-        self.setStyleSheet("border-width:0px;border-style:groove;")#消除边框
+        self.setStyleSheet("border-width:0px;border-style:groove;background-color: rgb(61,59,59);")#消除边框,改变背景色
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)

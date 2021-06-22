@@ -18,11 +18,11 @@ class SetDialog(QDialog):
     
     def setupUi(self):
         label1 = QLabel("唤醒热键", self)
-        label1.setGeometry(QRect(30, 40, 141, 16))
+        label1.setGeometry(QRect(30, 40, 150, 20))
         label2 = QLabel("失去焦点后自动隐藏", self)
-        label2.setGeometry(QRect(30, 180, 141, 16))
+        label2.setGeometry(QRect(30, 180, 150, 20))
         label3 = QLabel("每个引擎搜索文章数", self)
-        label3.setGeometry(QRect(30, 110, 141, 16))
+        label3.setGeometry(QRect(30, 110, 150, 20))
         
         #快捷键转换
         keyStr = ""
@@ -44,10 +44,10 @@ class SetDialog(QDialog):
 
         #选择框
         self._radioButtonYes = QRadioButton("是", self)
-        self._radioButtonYes.setGeometry(QRect(250, 180, 51, 19))
+        self._radioButtonYes.setGeometry(QRect(250, 180, 55, 25))
 
         self._radioButtonNo = QRadioButton("否", self)
-        self._radioButtonNo.setGeometry(QRect(320, 180, 51, 19))
+        self._radioButtonNo.setGeometry(QRect(320, 180, 55, 25))
 
         if self._config["loseFocusHidden"]:
             self._radioButtonYes.setChecked(True)

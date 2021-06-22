@@ -10,6 +10,9 @@ from src.SetDialog import SetDialog
 from system_hotkey import SystemHotkey
 import src.icons
 from pathlib import Path
+import qdarkstyle
+import ctypes
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("myAppid")
 
 class EasySearch(object):
     def __init__(self, configuration):
@@ -214,6 +217,7 @@ class HotKeyThread(SystemHotkey, QThread):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5'))
     path = Path.cwd().joinpath("src","settings.json")
     try:
         with open(str(path),"r") as fp:
