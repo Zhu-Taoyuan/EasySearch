@@ -72,7 +72,7 @@ python main.py
 这个项目是电子科技大学张勇老师所开设的《Python语言程序设计及其应用》课程的期末课程设计项目，首先十分感谢张老师对我们这一学期的指导。本项目由三位同学共同完成，分别是：
 
 * 2020级自动化工程学院  [陈坤](https://github.com/TheCoderChen)
-* 2018级物理学院  穆斐
+* 2018级物理学院  [穆斐](https://github.com/Rorschach1234)
 * 2018级物理学院  [朱韬远](https://github.com/Zhu-Taoyuan)
 
 本项目在经由三位同学的同意下，以[MIT](./LICENSE)的开源协议进行开源。
