@@ -5,6 +5,7 @@ from lxml import etree
 class AbstractCrawler(ABC):
     """爬虫的抽象类，用于统一爬虫的接口
     """
+    @abstractmethod
     def setParam(self, keyword, passageNum):
         """设置爬虫参数
 

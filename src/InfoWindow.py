@@ -19,6 +19,7 @@ class InfoWindow(QWidget):
     def setupUi(self):
         self.setAttribute(Qt.WA_QuitOnClose, False)#用于解决此窗口关闭后，整个程序都关闭的问题
         self.setWindowIcon(QIcon(":/src/engineIcon/searchAll.ico"))
+        self.setWindowTitle("搜索结果")
         self.resize(1000, 600)
         #进度条的显示页
         self._processPage = ProcessPage("爬虫正在运行中...")
